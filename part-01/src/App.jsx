@@ -1,14 +1,21 @@
 import { useState } from "react"
 
 function App() {
-  const [counter, setCounter] = useState(0)
+  const [clicks, setClicks] = useState(0)
 
-  setTimeout(()=>{
-    setCounter(counter+1)
-  }, 1000)
+  const handleClick = ()=> setClicks(clicks+1)
   return (
-    <div>{counter}</div>
+    <div>
+      <button onClick={handleClick}>Click</button>
+      <History clicks={clicks}/>
+    </div>
   )
+}
+
+const History = ({clicks})=>{
+  if(clicks==0) return <p>No click yes, try button!</p>
+
+  return <p>Great! clicks: {clicks}</p>
 }
 
 export default App
