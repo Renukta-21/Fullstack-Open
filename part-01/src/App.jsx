@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div>
       <Header name={course}/>
-      {parts.map(p=> <p>{p.name}-{p.exercises}</p> )}
+      {parts.map(p=> <Part part={p}/> )}
     </div>
   )
 }
