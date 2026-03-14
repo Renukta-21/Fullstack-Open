@@ -3,10 +3,21 @@ import './phonebook.css'
 
 function Phonebook() {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '5640548811' }
-  ])
+  { name: 'Arto Hellas',      phone: '5640548811' },
+  { name: 'Ada Lovelace',     phone: '5512345678' },
+  { name: 'Linus Torvalds',   phone: '5598765432' },
+  { name: 'Grace Hopper',     phone: '5567891234' },
+  { name: 'Alan Turing',      phone: '5534567890' },
+  { name: 'Tim Berners-Lee',  phone: '5523456789' },
+  { name: 'Dennis Ritchie',   phone: '5578901234' },
+])
   const [userInput, setUserInput] = useState('')
   const [phone, setPhone] = useState('')
+  const [nameFilter, setNameFilter] = useState('')
+
+  const filteredPersons = nameFilter
+  ? persons.filter(p=> p.name.includes(nameFilter))
+  : persons
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -25,6 +36,7 @@ function Phonebook() {
   return (
     <div>
       <h3>Phonebook</h3>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="inputNewUser">name</label>
@@ -36,6 +48,12 @@ function Phonebook() {
         </div>
         <button>Add</button>
       </form>
+      <div style={{
+        marginTop:'25px'
+      }}>
+        <label htmlFor="filter">Filter</label>
+        <input type="text" id="filter" placeholder="Search by name" value={nameFilter} onChange={(e)=> setNameFilter(e.target.value)}/>
+      </div>
       <table>
         <thead>
           <tr>
@@ -44,7 +62,7 @@ function Phonebook() {
           </tr>
         </thead>
         <tbody>
-          {persons.map(p => <tr key={p.name}>
+          {filteredPersons.map(p => <tr key={p.name}>
             <td>{p.name}</td>
             <td>{p.phone}</td>
           </tr>)}
