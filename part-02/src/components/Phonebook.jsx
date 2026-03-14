@@ -1,16 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './phonebook.css'
+import axios from "axios"
 
 function Phonebook() {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '5640548811' },
-    { name: 'Ada Lovelace', phone: '5512345678' },
-    { name: 'Linus Torvalds', phone: '5598765432' },
-    { name: 'Grace Hopper', phone: '5567891234' },
-    { name: 'Alan Turing', phone: '5534567890' },
-    { name: 'Tim Berners-Lee', phone: '5523456789' },
-    { name: 'Dennis Ritchie', phone: '5578901234' },
-  ])
+  const [persons, setPersons] = useState([])
+  /* useEffect(() => {
+    const {data} = axios.get("http://localhost:3001/persons")
+    setPersons(data)
+  }, []) */
+  useEffect(() => {
+    const response = axios.get("http://localhost:3001/persons")
+    .then(response=> setPersons(response.data))
+  }, [])
+  
+  
   const [userInput, setUserInput] = useState('')
   const [phone, setPhone] = useState('')
   const [nameFilter, setNameFilter] = useState('')
@@ -70,6 +73,8 @@ const PersonForm = ({ handleSubmit, setUserInput, userInput, phone, setPhone }) 
   )
 }
 const Persons = ({ filteredPersons }) => {
+  if(!filteredPersons) return <p>No persons yet</p>
+
   return <table>
     <thead>
       <tr>
