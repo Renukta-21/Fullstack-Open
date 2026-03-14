@@ -1,71 +1,49 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import './app.css'
-function App() {
-  const [good, setGood] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [neutral, setNeutral] = useState(0)
+const App = () => {
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+    'The only way to go fast, is to go well.'
+  ]
 
-  const handleGoodClick = () => setGood(good + 1)
-  const handleNeutralClick = () => setNeutral(neutral + 1)
-  const handlebadClick = () => setBad(bad + 1)
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
-  const total = good + bad + neutral
+  const mostVotedIndex = votes.indexOf(Math.max(...votes))
+
+  console.log(mostVotedIndex)
+  const handleNext = () => {
+    if (selected === anecdotes.length - 1) {
+      setSelected(0)
+    }
+    else {
+      setSelected(selected + 1)
+    }
+  }
+  const handleVote = () => {
+    console.log(selected)
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
+  }
   return (
     <div>
-      <h1>give feedback</h1>
-      <Button onClick={handleGoodClick} text='good' />
-      <Button onClick={handleNeutralClick} text='neutral' />
-      <Button onClick={handlebadClick} text='bad' />
-
-
-
+      <h4>{anecdotes[selected]}</h4>
+      <p>has {votes[selected]} votes</p>
       <div>
-        {total === 0 ? <p>No reviews yet</p>
-          : <div>
-            <h3>Statistics</h3>
-            <table style={{
-              borderCollapse: 'collapse',
-              marginTop: '10px'
-            }}>
-              <tbody>
-                <tr>
-                  <td>Good</td>
-                  <td>{good}</td>
-                </tr>
-                <tr>
-                  <td>Neutral</td>
-                  <td>{neutral}</td>
-                </tr>
-                <tr>
-                  <td>Bad</td>
-                  <td>{bad}</td>
-                </tr>
-                <tr>
-                  <td>Average</td>
-                  <td><Average total={total} reviews={{ good, neutral, bad }} /></td>
-                </tr>
-                <tr>
-                  <td>Positive</td>
-                  <td><Positive good={good} total={total} /></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>}
-
+        <button onClick={handleVote}>Vote</button>
+        <button onClick={handleNext}>Next anecdote</button>
       </div>
+      <b>Most voted</b>
+      <p>{anecdotes[mostVotedIndex]}</p>
     </div>
   )
-}
-
-const Button = ({ onClick, text }) => {
-  return <button onClick={onClick}>{text}</button>
-}
-const Average = ({ total, reviews }) => {
-  return <p>{(reviews.good * 1 + reviews.neutral * 0 + reviews.bad * -1) / total}</p>
-}
-const Positive = ({ good, total }) => {
-  return <p>{(good / total) * 100} %</p>
 }
 
 export default App
