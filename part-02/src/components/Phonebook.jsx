@@ -5,20 +5,22 @@ function Phonebook() {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas' }
   ])
+  const [userInput, setUserInput] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const newPerson = {
-      name: e.target.inputNewUser.value
+      name: userInput
     }
     setPersons(persons.concat(newPerson))
+    setUserInput('')
   }
   return (
     <div>
       <h3>Phonebook</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="inputNewUser">name</label>
-        <input type="text" id="inputNewUser" />
+        <input type="text" id="inputNewUser" value={userInput} onChange={(e)=> setUserInput(e.target.value)}/>
         <button>Add</button>
       </form>
       <table>
