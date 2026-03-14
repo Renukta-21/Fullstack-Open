@@ -1,21 +1,32 @@
 import { useState } from "react"
 
 function App() {
-  const [clicks, setClicks] = useState(0)
+  const [good, setGood] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [neutral, setNeutral] = useState(0)
 
-  const handleClick = ()=> setClicks(clicks+1)
+  const handleGoodClick = ()=> setGood(good+1)
+  const handleNeutralClick = ()=> setNeutral(neutral+1)
+  const handlebadClick = ()=> setBad(bad+1)
+
   return (
     <div>
-      <button onClick={handleClick}>Click</button>
-      <History clicks={clicks}/>
+      <h1>give feedback</h1>
+      <button onClick={handleGoodClick}>Good</button>
+      <button onClick={handleNeutralClick}>Neutral</button>
+      <button onClick={handlebadClick}>Bad</button>
+      <h3>Statistics</h3>
+      <div>
+        <p>Good {good}</p>
+        <p>Neutral {neutral}</p>
+        <p>Bad {bad}</p>
+      </div>
+      <Average good={good} neutral={neutral} bad={bad}/>
     </div>
   )
 }
-
-const History = ({clicks})=>{
-  if(clicks==0) return <p>No click yes, try button!</p>
-
-  return <p>Great! clicks: {clicks}</p>
+const Average = ({good, neutral, bad})=>{
+  return <p>{(good * 1+neutral*0+bad*-1)/3}</p>
 }
 
 export default App
