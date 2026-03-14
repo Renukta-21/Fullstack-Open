@@ -9,6 +9,10 @@ function Phonebook() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(persons.some(p=> p.name===userInput)){
+      alert(`${userInput} already exists`)
+      return
+    }
     const newPerson = {
       name: userInput
     }
@@ -30,7 +34,7 @@ function Phonebook() {
           </tr>
         </thead>
         <tbody>
-          {persons.map(p => <tr><td>{p.name}</td></tr>)}
+          {persons.map(p => <tr key={p.name}><td>{p.name}</td></tr>)}
         </tbody>
       </table>
     </div>
