@@ -1,6 +1,6 @@
 import { useState } from "react"
-import StatisticsLine from "./StatisticsLine"
 
+import './app.css'
 function App() {
   const [good, setGood] = useState(0)
   const [bad, setBad] = useState(0)
@@ -18,17 +18,40 @@ function App() {
       <Button onClick={handleNeutralClick} text='neutral' />
       <Button onClick={handlebadClick} text='bad' />
 
-      <h3>Statistics</h3>
-      <StatisticsLine text='good' value={good} />
-      <StatisticsLine text='neutral' value={neutral} />
-      <StatisticsLine text='bad' value={bad} />
+
 
       <div>
         {total === 0 ? <p>No reviews yet</p>
           : <div>
-            <Average total={total} reviews={{ good, neutral, bad }}/>
-            <Positive good={good} total={total}/>
-          </div> }
+            <h3>Statistics</h3>
+            <table style={{
+              borderCollapse: 'collapse',
+              marginTop: '10px'
+            }}>
+              <tbody>
+                <tr>
+                  <td>Good</td>
+                  <td>{good}</td>
+                </tr>
+                <tr>
+                  <td>Neutral</td>
+                  <td>{neutral}</td>
+                </tr>
+                <tr>
+                  <td>Bad</td>
+                  <td>{bad}</td>
+                </tr>
+                <tr>
+                  <td>Average</td>
+                  <td><Average total={total} reviews={{ good, neutral, bad }} /></td>
+                </tr>
+                <tr>
+                  <td>Positive</td>
+                  <td><Positive good={good} total={total} /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>}
 
       </div>
     </div>
@@ -42,7 +65,7 @@ const Average = ({ total, reviews }) => {
   return <p>{(reviews.good * 1 + reviews.neutral * 0 + reviews.bad * -1) / total}</p>
 }
 const Positive = ({ good, total }) => {
-  return <p>Positive {(good / total) * 100} %</p>
+  return <p>{(good / total) * 100} %</p>
 }
 
 export default App
