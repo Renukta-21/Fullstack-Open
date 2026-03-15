@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import './phonebook.css'
 import axios from "axios"
+import phonebookService from '../services/phonebook'
 
 function Phonebook() {
   const [persons, setPersons] = useState([])
@@ -9,8 +10,8 @@ function Phonebook() {
     setPersons(data)
   }, []) */
   useEffect(() => {
-    const response = axios.get("http://localhost:3001/persons")
-    .then(response=> setPersons(response.data))
+    const response = phonebookService.getAll()
+    .then(response=> setPersons(response))
   }, [])
   
   
