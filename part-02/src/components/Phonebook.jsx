@@ -25,9 +25,14 @@ function Phonebook() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!userInput || !number) {
+    alert("Name and number are required")
+    return
+  }
+  
     if (persons.some(p => p.name === userInput)) {
-      alert(`${userInput} already exists`)
-      return
+      if(!window.confirm(`${userInput} is already added to the phonebook, replace the old number with the new one?`)) return
+      console.log(`${persons.find(p=> p.name==userInput)} will be replaced with following number ${number}`)
     }
     const newPerson = {
       name: userInput,
@@ -43,7 +48,6 @@ function Phonebook() {
   }
 
   const handleDelete = (id, name) => {
-
     if (!window.confirm(`Are you sure you want to delete ${name}`)) return
 
     phonebookService.deleteUser(id)

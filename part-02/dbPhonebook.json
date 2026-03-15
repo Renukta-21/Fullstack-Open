@@ -56,11 +56,6 @@
       "id": "13"
     },
     {
-      "name": "Margaret Hamilton",
-      "number": "44-567-8901",
-      "id": "14"
-    },
-    {
       "name": "John McCarthy",
       "number": "33-890-1234",
       "id": "15"
@@ -81,14 +76,19 @@
       "id": "18"
     },
     {
-      "name": "Eduardo",
-      "number": "34-345-4354",
-      "id": "19"
-    },
-    {
       "name": "Daniel AJK",
       "number": "32-434-5235",
       "id": "20"
+    },
+    {
+      "id": "1c9e",
+      "name": "Alan Turing",
+      "number": "44235452354543"
+    },
+    {
+      "id": "2b71",
+      "name": "sad",
+      "number": "a"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
