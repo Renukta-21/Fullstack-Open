@@ -16,14 +16,14 @@
       "id": "3"
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
       "id": "39e9",
       "name": "Daniel",
       "number": "325345345"
+    },
+    {
+      "id": "56e8",
+      "name": "Eduardo",
+      "number": "34345435"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

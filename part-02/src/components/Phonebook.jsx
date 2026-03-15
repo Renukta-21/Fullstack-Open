@@ -39,6 +39,18 @@ function Phonebook() {
     setUserInput('')
     setNumber('')
   }
+
+  const handleDelete=(id, name)=>{
+    
+    if(!window.confirm(`Are you sure you want to delete ${name}`)) return
+    
+    axios.delete(`http://localhost:3001/persons/${id}`)
+    .then(response=> {
+      console.log(response.data)
+      setPersons(persons.filter(p=>p.id!==id))
+    })
+    .catch(error=> console.log(error.response.data))
+  }
   return (
     <div>
       <h3>Phonebook</h3>
@@ -48,7 +60,7 @@ function Phonebook() {
       }}>
         <Filter nameFilter={nameFilter} setNameFilter={setNameFilter} />
       </div>
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete}/>
     </div>
   )
 }
@@ -75,7 +87,7 @@ const PersonForm = ({ handleSubmit, setUserInput, userInput, number, setNumber }
     </form>
   )
 }
-const Persons = ({ filteredPersons }) => {
+const Persons = ({ filteredPersons, handleDelete }) => {
   if(!filteredPersons) return <p>No persons yet</p>
 
   return <table>
@@ -83,12 +95,14 @@ const Persons = ({ filteredPersons }) => {
       <tr>
         <th>Name</th>
         <th>Phone</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       {filteredPersons.map(p => <tr key={p.id}>
         <td>{p.name}</td>
         <td>{p.number}</td>
+        <td><button onClick={()=> handleDelete(p.id, p.name)}>Delete</button></td>
       </tr>)}
     </tbody>
   </table>
