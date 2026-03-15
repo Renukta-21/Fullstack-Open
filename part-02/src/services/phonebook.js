@@ -6,4 +6,13 @@ const getAll =()=>{
     return axios.get(apiURL)
     .then(response=>response.data)
 }
-export default {getAll}
+
+const add=(newUser)=>{
+    return axios.post(apiURL, newUser)
+    .then(response=> response.data)
+}
+const deleteUser=(id)=>{
+    return axios.delete(`${apiURL}/${id}`)
+    .then(response=>response.data)
+}
+export default {getAll, add, deleteUser}

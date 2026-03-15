@@ -11,10 +11,10 @@ function Phonebook() {
   }, []) */
   useEffect(() => {
     const response = phonebookService.getAll()
-    .then(response=> setPersons(response))
+      .then(response => setPersons(response))
   }, [])
-  
-  
+
+
   const [userInput, setUserInput] = useState('')
   const [number, setNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
@@ -33,23 +33,22 @@ function Phonebook() {
       name: userInput,
       number
     }
-   axios.post("http://localhost:3001/persons", newPerson)
-   .then(response=> setPersons(persons.concat(response.data)))
-   console.log(persons)
+
+    phonebookService.add(newPerson)
+      .then(addedPerson => setPersons(persons.concat(addedPerson)))
+
+    console.log(persons)
     setUserInput('')
     setNumber('')
   }
 
-  const handleDelete=(id, name)=>{
-    
-    if(!window.confirm(`Are you sure you want to delete ${name}`)) return
-    
-    axios.delete(`http://localhost:3001/persons/${id}`)
-    .then(response=> {
-      console.log(response.data)
-      setPersons(persons.filter(p=>p.id!==id))
-    })
-    .catch(error=> console.log(error.response.data))
+  const handleDelete = (id, name) => {
+
+    if (!window.confirm(`Are you sure you want to delete ${name}`)) return
+
+    phonebookService.deleteUser(id)
+      .then(deletedUser => setPersons(persons.filter(p => p.id !== id)))
+      .catch(error => console.log(error.response.data))
   }
   return (
     <div>
@@ -60,7 +59,7 @@ function Phonebook() {
       }}>
         <Filter nameFilter={nameFilter} setNameFilter={setNameFilter} />
       </div>
-      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete}/>
+      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete} />
     </div>
   )
 }
@@ -88,7 +87,7 @@ const PersonForm = ({ handleSubmit, setUserInput, userInput, number, setNumber }
   )
 }
 const Persons = ({ filteredPersons, handleDelete }) => {
-  if(!filteredPersons) return <p>No persons yet</p>
+  if (!filteredPersons) return <p>No persons yet</p>
 
   return <table>
     <thead>
@@ -102,7 +101,7 @@ const Persons = ({ filteredPersons, handleDelete }) => {
       {filteredPersons.map(p => <tr key={p.id}>
         <td>{p.name}</td>
         <td>{p.number}</td>
-        <td><button onClick={()=> handleDelete(p.id, p.name)}>Delete</button></td>
+        <td><button onClick={() => handleDelete(p.id, p.name)}>Delete</button></td>
       </tr>)}
     </tbody>
   </table>

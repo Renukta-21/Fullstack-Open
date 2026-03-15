@@ -16,14 +16,79 @@
       "id": "3"
     },
     {
-      "id": "39e9",
-      "name": "Daniel",
-      "number": "325345345"
+      "name": "Grace Hopper",
+      "number": "44-321-9876",
+      "id": "5"
     },
     {
-      "id": "56e8",
+      "name": "Alan Turing",
+      "number": "33-456-7890",
+      "id": "6"
+    },
+    {
+      "name": "Tim Berners-Lee",
+      "number": "77-654-3210",
+      "id": "7"
+    },
+    {
+      "name": "Dennis Ritchie",
+      "number": "22-789-0123",
+      "id": "8"
+    },
+    {
+      "name": "Bjarne Stroustrup",
+      "number": "11-234-5678",
+      "id": "9"
+    },
+    {
+      "name": "James Gosling",
+      "number": "66-543-2109",
+      "id": "11"
+    },
+    {
+      "name": "Brendan Eich",
+      "number": "88-012-3456",
+      "id": "12"
+    },
+    {
+      "name": "Ken Thompson",
+      "number": "55-109-8765",
+      "id": "13"
+    },
+    {
+      "name": "Margaret Hamilton",
+      "number": "44-567-8901",
+      "id": "14"
+    },
+    {
+      "name": "John McCarthy",
+      "number": "33-890-1234",
+      "id": "15"
+    },
+    {
+      "name": "Edsger Dijkstra",
+      "number": "22-345-6789",
+      "id": "16"
+    },
+    {
+      "name": "Donald Knuth",
+      "number": "11-678-9012",
+      "id": "17"
+    },
+    {
+      "name": "Barbara Liskov",
+      "number": "99-901-2345",
+      "id": "18"
+    },
+    {
       "name": "Eduardo",
-      "number": "34345435"
+      "number": "34-345-4354",
+      "id": "19"
+    },
+    {
+      "name": "Daniel AJK",
+      "number": "32-434-5235",
+      "id": "20"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
