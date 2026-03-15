@@ -33,7 +33,7 @@ function Phonebook() {
       number
     }
    axios.post("http://localhost:3001/persons", newPerson)
-   .then(response=> console.log(response))
+   .then(response=> setPersons(persons.concat(response.data)))
    console.log(persons)
     setUserInput('')
     setNumber('')

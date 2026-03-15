@@ -21,19 +21,9 @@
       "id": "4"
     },
     {
-      "id": "d06b",
-      "name": "asd",
-      "phone": "asd"
-    },
-    {
-      "id": "e313",
-      "name": "sad",
-      "number": "asd"
-    },
-    {
-      "id": "fdcf",
-      "name": "asdfasdf",
-      "number": "345345345"
+      "id": "39e9",
+      "name": "Daniel",
+      "number": "325345345"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
