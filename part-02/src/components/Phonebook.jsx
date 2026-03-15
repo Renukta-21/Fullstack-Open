@@ -15,7 +15,7 @@ function Phonebook() {
   
   
   const [userInput, setUserInput] = useState('')
-  const [phone, setPhone] = useState('')
+  const [number, setNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
 
   const filteredPersons = nameFilter
@@ -30,16 +30,18 @@ function Phonebook() {
     }
     const newPerson = {
       name: userInput,
-      phone
+      number
     }
-    setPersons(persons.concat(newPerson))
+   axios.post("http://localhost:3001/persons", newPerson)
+   .then(response=> console.log(response))
+   console.log(persons)
     setUserInput('')
-    setPhone('')
+    setNumber('')
   }
   return (
     <div>
       <h3>Phonebook</h3>
-      <PersonForm handleSubmit={handleSubmit} userInput={userInput} setUserInput={setUserInput} phone={phone} setPhone={setPhone} />
+      <PersonForm handleSubmit={handleSubmit} userInput={userInput} setUserInput={setUserInput} number={number} setNumber={setNumber} />
       <div style={{
         marginTop: '25px'
       }}>
@@ -57,7 +59,7 @@ const Filter = ({ nameFilter, setNameFilter }) => {
   )
 }
 
-const PersonForm = ({ handleSubmit, setUserInput, userInput, phone, setPhone }) => {
+const PersonForm = ({ handleSubmit, setUserInput, userInput, number, setNumber }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -66,7 +68,7 @@ const PersonForm = ({ handleSubmit, setUserInput, userInput, phone, setPhone }) 
       </div>
       <div>
         <label htmlFor="inputPhone">Phone</label>
-        <input type="text" id="inputPhone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <input type="text" id="inputPhone" value={number} onChange={(e) => setNumber(e.target.value)} />
       </div>
       <button>Add</button>
     </form>
@@ -83,9 +85,9 @@ const Persons = ({ filteredPersons }) => {
       </tr>
     </thead>
     <tbody>
-      {filteredPersons.map(p => <tr key={p.name}>
+      {filteredPersons.map(p => <tr key={p.id}>
         <td>{p.name}</td>
-        <td>{p.phone}</td>
+        <td>{p.number}</td>
       </tr>)}
     </tbody>
   </table>
