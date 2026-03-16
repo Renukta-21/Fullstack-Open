@@ -29,10 +29,18 @@ function Phonebook() {
     alert("Name and number are required")
     return
   }
-  
+
     if (persons.some(p => p.name === userInput)) {
       if(!window.confirm(`${userInput} is already added to the phonebook, replace the old number with the new one?`)) return
       console.log(`${persons.find(p=> p.name==userInput)} will be replaced with following number ${number}`)
+
+      const userToUpdate = persons.find(p=>p.name==userInput)
+      userToUpdate.number = number
+      phonebookService.updateUser(userToUpdate)
+      .then(updatedUser=> setPersons(persons.map(p=> p.id==userToUpdate.id ? updatedUser: p)))
+      setUserInput('')
+    setNumber('')
+      return
     }
     const newPerson = {
       name: userInput,

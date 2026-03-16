@@ -1,0 +1,22 @@
+GET http://localhost:3001/persons
+
+### POST REQUEST
+POST http://localhost:3001/persons
+Content-Type: application/json
+
+{
+    "name":"Eduardo Urbina",
+    "number":"5630548812"
+}
+
+### DELETE SOMETHING
+DELETE http://localhost:3001/persons/bf51
+
+### PUT SOMETHING
+PUT http://localhost:3001/persons/1c9e
+Content-Type: application/json
+
+{
+    "name":"Alan Turing",
+    "number": "5630548811"
+}

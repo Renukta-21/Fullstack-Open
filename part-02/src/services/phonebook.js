@@ -15,4 +15,8 @@ const deleteUser=(id)=>{
     return axios.delete(`${apiURL}/${id}`)
     .then(response=>response.data)
 }
-export default {getAll, add, deleteUser}
+const updateUser=(updatedUser)=>{
+    return axios.put(`${apiURL}/${updatedUser.id}`, updatedUser)
+    .then(response=>response.data)
+}
+export default {getAll, add, deleteUser, updateUser}
