@@ -20,6 +20,7 @@ function Phonebook() {
   const [number, setNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [type, setType] = useState('success')
 
   const filteredPersons = nameFilter
     ? persons.filter(p => p.name.includes(nameFilter))
@@ -66,12 +67,17 @@ function Phonebook() {
 
     phonebookService.deleteUser(id)
       .then(deletedUser => setPersons(persons.filter(p => p.id !== id)))
-      .catch(error => console.log(error.response.data))
+      .catch(error => {
+        setType('fail')
+        setMessage('User was already deleted!')
+        setTimeout(()=> setMessage(null), 3000)
+        setPersons(persons.filter(p=> p.id!==id))
+      })
   }
   return (
     <div>
       <h3>Phonebook</h3>
-      <Notification message={message} type='success' />
+      <Notification message={message} type={type}/>
       <PersonForm handleSubmit={handleSubmit} userInput={userInput} setUserInput={setUserInput} number={number} setNumber={setNumber} />
       <div style={{
         marginTop: '25px'

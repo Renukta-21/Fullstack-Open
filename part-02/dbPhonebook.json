@@ -69,26 +69,6 @@
       "name": "Barbara Liskov",
       "number": "99-901-2345",
       "id": "18"
-    },
-    {
-      "name": "Daniel AJK",
-      "number": "32-434-5235",
-      "id": "20"
-    },
-    {
-      "name": "Alan Turing",
-      "number": "5630548811",
-      "id": "1c9e"
-    },
-    {
-      "id": "aea4",
-      "name": "Daniel",
-      "number": "345453345"
-    },
-    {
-      "id": "39ca",
-      "name": "Eduardo ",
-      "number": "3453464536"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
