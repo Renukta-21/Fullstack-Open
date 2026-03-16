@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import './phonebook.css'
 import axios from "axios"
 import phonebookService from '../services/phonebook'
+import Notification from './Notification'
 
 function Phonebook() {
   const [persons, setPersons] = useState([])
@@ -18,6 +19,7 @@ function Phonebook() {
   const [userInput, setUserInput] = useState('')
   const [number, setNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   const filteredPersons = nameFilter
     ? persons.filter(p => p.name.includes(nameFilter))
@@ -26,20 +28,21 @@ function Phonebook() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!userInput || !number) {
-    alert("Name and number are required")
-    return
-  }
+      alert("Name and number are required")
+      return
+    }
 
     if (persons.some(p => p.name === userInput)) {
-      if(!window.confirm(`${userInput} is already added to the phonebook, replace the old number with the new one?`)) return
-      console.log(`${persons.find(p=> p.name==userInput)} will be replaced with following number ${number}`)
+      if (!window.confirm(`${userInput} is already added to the phonebook, replace the old number with the new one?`)) return
+      console.log(`${persons.find(p => p.name == userInput)} will be replaced with following number ${number}`)
 
-      const userToUpdate = persons.find(p=>p.name==userInput)
+      const userToUpdate = persons.find(p => p.name == userInput)
       userToUpdate.number = number
       phonebookService.updateUser(userToUpdate)
-      .then(updatedUser=> setPersons(persons.map(p=> p.id==userToUpdate.id ? updatedUser: p)))
+        .then(updatedUser => setPersons(persons.map(p => p.id == userToUpdate.id ? updatedUser : p)))
       setUserInput('')
-    setNumber('')
+      setNumber('')
+
       return
     }
     const newPerson = {
@@ -51,8 +54,11 @@ function Phonebook() {
       .then(addedPerson => setPersons(persons.concat(addedPerson)))
 
     console.log(persons)
+    setMessage(`${userInput} has been added succesfully :)`)
+    setTimeout(()=> setMessage(null), 3000)
     setUserInput('')
     setNumber('')
+    
   }
 
   const handleDelete = (id, name) => {
@@ -65,6 +71,7 @@ function Phonebook() {
   return (
     <div>
       <h3>Phonebook</h3>
+      <Notification message={message} type='success' />
       <PersonForm handleSubmit={handleSubmit} userInput={userInput} setUserInput={setUserInput} number={number} setNumber={setNumber} />
       <div style={{
         marginTop: '25px'
