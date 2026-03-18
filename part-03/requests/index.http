@@ -1,0 +1,3 @@
+### /persons
+
+GET http://localhost:3001/persons

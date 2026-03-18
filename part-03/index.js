@@ -1,28 +1,36 @@
-const http = require('http')
+const express = require('express')
+const app = express()
+const PORT = process.env.PORT || 3001
 
-
-let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
-    important: true
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    important: false
-  },
-  {
-    id: "3",
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true
-  }
+const persons = [
+    {
+        "id": "1",
+        "name": "Arto Hellas",
+        "number": "040-123456"
+    },
+    {
+        "id": "2",
+        "name": "Ada Lovelace",
+        "number": "39-44-5323523"
+    },
+    {
+        "id": "3",
+        "name": "Dan Abramov",
+        "number": "12-43-234345"
+    },
+    {
+        "id": "4",
+        "name": "Mary Poppendieck",
+        "number": "39-23-6423122"
+    }
 ]
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { 'Content-Type': 'application/json' })
-  response.end(JSON.stringify(notes))
-})
 
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+app.get('/', (req, res) => {
+    res.send(`<h1>Main API</h1>`)
+})
+app.get('/api/persons', (req,res)=>{
+  res.json(persons)
+})
+app.listen(PORT, () => {
+    console.log(`App running on ${PORT}`)
+})
