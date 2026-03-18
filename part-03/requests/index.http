@@ -7,6 +7,24 @@ GET http://localhost:3001/api/persons/1
 ### /api/persons/:id
 DELETE http://localhost:3001/api/persons/2
 
+### /api/persons/:id
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name":"Eduardo Urbina",
+    "number":"5630548813"
+}
+
+### /api/persons/:id HANDLED MISSING INFO
+
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "number":"5630548813"
+}
+
 ### /info
 GET http://localhost:3001/info
 

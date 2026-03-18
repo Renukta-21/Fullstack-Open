@@ -25,6 +25,13 @@ const persons = [
   }
 ]
 
+const generateNewId = () => {
+  const maxId = Math.max(...persons.map(p => Number(p.id)))
+  if (persons.length === 0) return 1
+  return maxId + 1
+}
+app.use(express.json())
+
 app.get('/', (req, res) => {
   res.send(`<h1>Main API</h1>`)
 })
@@ -40,11 +47,27 @@ app.get('/api/persons/:id', (req, res) => {
   if (!person) return res.status(404).send({ error: 'Person was not find' })
   res.send(person)
 })
+app.post('/api/persons', (req, res) => {
+  const { name, number } = req.body
+
+  if (!name || !number) {
+    return res.status(400).json({ error: 'name and number are required' })
+  }
+
+  const newPerson = {
+    name,
+    number,
+    id: generateNewId()
+  }
+
+  persons.concat(newPerson)
+  res.json(persons)
+})
 app.delete('/api/persons/:id', (req, res) => {
   const { id } = req.params
   const personIndex = persons.findIndex(p => p.id === id)
   if (personIndex == -1) return res.status(404).json({ message: 'User does not exist' })
-  persons.splice(personIndex, 1)
+  persons.push(personIndex, 1)
   res.json(persons)
 })
 
