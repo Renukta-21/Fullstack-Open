@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const requestLogger = require('./middlewares/logger')
+
 const PORT = process.env.PORT || 3001
 
 const persons = [
@@ -30,7 +32,9 @@ const generateNewId = () => {
   if (persons.length === 0) return 1
   return maxId + 1
 }
+
 app.use(express.json())
+app.use(requestLogger)
 
 app.get('/', (req, res) => {
   res.send(`<h1>Main API</h1>`)
