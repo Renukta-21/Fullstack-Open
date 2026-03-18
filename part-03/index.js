@@ -39,6 +39,7 @@ app.get('/info', (req, res) => {
   res.send(`Phonebook has info for ${persons.length} people\n ${new Date()}`)
 })
 app.get('/api/persons', (req, res) => {
+  /* console.log(persons) */
   res.json(persons)
 })
 app.get('/api/persons/:id', (req, res) => {
@@ -54,21 +55,24 @@ app.post('/api/persons', (req, res) => {
     return res.status(400).json({ error: 'name and number are required' })
   }
 
+  const alreadyExists = persons.some(p=>p.name.toLowerCase()===name.toLowerCase())
+  if(alreadyExists) return res.status(409).json({error:'User already exists, name must be unique'})
+
   const newPerson = {
     name,
     number,
     id: generateNewId()
   }
 
-  persons.concat(newPerson)
-  res.json(persons)
+  persons.push(newPerson)
+  res.json(newPerson)
 })
 app.delete('/api/persons/:id', (req, res) => {
   const { id } = req.params
   const personIndex = persons.findIndex(p => p.id === id)
   if (personIndex == -1) return res.status(404).json({ message: 'User does not exist' })
-  persons.push(personIndex, 1)
-  res.json(persons)
+  persons.splice(personIndex, 1)
+  res.status(204).end()
 })
 
 app.listen(PORT, () => {
