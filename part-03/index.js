@@ -28,9 +28,13 @@ const persons = [
 app.get('/', (req, res) => {
     res.send(`<h1>Main API</h1>`)
 })
+app.get('/info', (req,res)=>{
+  res.send(`Phonebook has info for ${persons.length} people\n ${new Date()}`)
+})
 app.get('/api/persons', (req,res)=>{
   res.json(persons)
 })
+
 app.listen(PORT, () => {
     console.log(`App running on ${PORT}`)
 })

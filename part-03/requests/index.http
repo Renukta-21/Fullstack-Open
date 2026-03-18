@@ -1,3 +1,5 @@
-### /persons
-
+### /api/persons
 GET http://localhost:3001/persons
+
+### /info
+GET http://localhost:3001/info
