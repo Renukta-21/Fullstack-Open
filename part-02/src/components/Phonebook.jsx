@@ -12,7 +12,10 @@ function Phonebook() {
   }, []) */
   useEffect(() => {
     const response = phonebookService.getAll()
-      .then(response => setPersons(response))
+      .then(response => {
+        setPersons(response)
+        console.log(response)
+      })
   }, [])
 
 
