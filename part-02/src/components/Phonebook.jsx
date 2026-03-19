@@ -112,7 +112,7 @@ const PersonForm = ({ handleSubmit, setUserInput, userInput, number, setNumber }
   )
 }
 const Persons = ({ filteredPersons, handleDelete }) => {
-  if (!filteredPersons) return <p>No persons yet</p>
+  if (filteredPersons.length==0) return <p>No persons yet</p>
 
   return <table>
     <thead>

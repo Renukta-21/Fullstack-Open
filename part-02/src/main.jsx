@@ -11,8 +11,8 @@ import Countries from './components/Countries.jsx'
   <StrictMode>
     {/* <App /> */}
     {/* <Notes/> */}
-    {/* <Phonebook/> */}
-    <Countries/>
+    <Phonebook/>
+    {/* <Countries/> */}
   </StrictMode>,
 )
 
