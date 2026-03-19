@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const requestLogger = require('./middlewares/logger')
-
+const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
 const persons = [
@@ -35,6 +35,8 @@ const generateNewId = () => {
 
 app.use(express.json())
 app.use(requestLogger)
+app.use(cors())
+app.use(express.static('dist'))
 
 app.get('/', (req, res) => {
   res.send(`<h1>Main API</h1>`)
