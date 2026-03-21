@@ -1,26 +1,34 @@
 const mongoose = require('mongoose')
 
 const password = process.argv[2]
+const name = process.argv[3]
+const phone = process.argv[4]
 
 const MONGO_URI = `mongodb+srv://fullstack:${password}@cluster0.nd6u1.mongodb.net/settingMongoDB?appName=Cluster0`
 mongoose.connect(MONGO_URI)
     .then(response => console.log('Connected succesfully to mongoDB'))
     .catch(err => console.error(err))
 
-const userSchema = mongoose.Schema({
+const personSchema = mongoose.Schema({
     name: String,
-    age: Number,
+    phone: Number
 })
 
-const User = new mongoose.model('User', userSchema)
-const newUser = new User({
-    name: 'Daniel Urbina',
-    age: 23
-})
+const Person = mongoose.model('Person', personSchema)
 
-newUser.save()
-    .then(response => console.log(response))
-    .catch(err => console.log(error))
-User.find({})
-.then(result=> console.log(result))
-.catch(err=> console.log(err))
+if (name && phone) {
+    const newPerson = new Person({
+        name,
+    })
+    newPerson.save()
+        .then(res => {
+            console.log(`Added ${res.name} number ${phone} to phonebook`)
+            mongoose.connection.close()
+        })
+} else {
+    Person.find({})
+        .then(res => {
+            console.log(res)
+            mongoose.connection.close()
+        })
+}
