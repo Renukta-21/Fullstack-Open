@@ -19,6 +19,7 @@ const Person = mongoose.model('Person', personSchema)
 if (name && phone) {
     const newPerson = new Person({
         name,
+        phone
     })
     newPerson.save()
         .then(res => {
@@ -28,7 +29,9 @@ if (name && phone) {
 } else {
     Person.find({})
         .then(res => {
-            console.log(res)
+            res.forEach(p=>{
+                console.log(`${p.name.padEnd(10)} --- ${p.phone}`)
+            })
             mongoose.connection.close()
         })
 }
